@@ -47,12 +47,12 @@ f.close()
 
 #create ssh_user.pass file
 
-f = open('.\client_alpine\ssh_user.pass', 'w')
+f = open('./client_alpine/ssh_user.pass', 'w')
 f.write(dictArgs['SSH_PASS'])
 f.close()
 
 #create scheduler_rsync.txt for crontab
-f = open('.\client_alpine\scheduler_rsync.txt', 'w', newline='\n')
+f = open('./client_alpine/scheduler_rsync.txt', 'w', newline='\n')
 print("{0} /synchDir.sh /mnt/{1} >> /var/log/cron.log 2>&1"
     .format(
             dictArgs['CRON_MODE'], dictArgs['CON_NAME'])
