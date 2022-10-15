@@ -50,5 +50,7 @@ optional arguments: <br />
   
   python create-client-container.py 'storage-con' '172.16.0.10' '/c/storage1' '@hourly' --SSH-PASS='jlvu6MAzXwEzYkjerbxu' <br />
   
-  **docker container has been created on client machine and now every 1 hour directory is synchronized to server created in p.1**
+  **docker container has been created on client machine and now every 1 hour directory is synchronized to the server side**
+
+  Data directory on server side is '/SynchBackupDir' 
   
