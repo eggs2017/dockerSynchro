@@ -26,7 +26,7 @@ print(dictArgs)
 
 
 #save
-f = open('.\config\.envClient', 'w', newline='\n')
+f = open('./config/.envClient', 'w', newline='\n')
 
 print('COMPOSE_PROJECT_NAME=project-{0}'.format(dictArgs['CON_NAME']), sep='\n', file=f)
 print('CON_NAME={0}'.format(dictArgs['CON_NAME']), sep='\n', file=f)
@@ -55,5 +55,5 @@ print("{0} /synchDir.sh /mnt/{1} >> /var/log/cron.log 2>&1"
             , sep='\n', file=f)
 f.close()
 #run command to build container  
-os.system("docker-compose -f docker-compose-template-client.yml --env-file .\config\.envClient build --no-cache ") 
-os.system("docker-compose -f docker-compose-template-client.yml --env-file .\config\.envClient up -d --force-recreate")
+os.system("docker-compose -f docker-compose-template-client.yml --env-file ./config/.envClient build --no-cache ") 
+os.system("docker-compose -f docker-compose-template-client.yml --env-file ./config/.envClient up -d --force-recreate")

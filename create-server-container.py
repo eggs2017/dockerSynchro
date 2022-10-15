@@ -35,7 +35,7 @@ dictArgs = vars(args)
 print(dictArgs)
 
 #save
-f = open('.\config\.envServer', 'w', newline='\n')
+f = open('./config/.envServer', 'w', newline='\n')
 print('CON_NAME={0}'.format(dictArgs['CON_NAME']), sep='\n', file=f)
 print('SSH_USER={0}'.format(dictArgs['SSH_USER']), sep='\n', file=f)
 print('SSH_PASS={0}'.format(dictArgs['SSH_PASS']), sep='\n', file=f)
@@ -43,5 +43,5 @@ print('SSH_PORT={0}'.format(dictArgs['SSH_PORT']), sep='\n', file=f)
 f.close() 
 
 #run command to build container  
-os.system("docker-compose -f docker-compose-template-server.yml --env-file .\config\.envServer build --no-cache ") 
-os.system("docker-compose -f docker-compose-template-server.yml --env-file .\config\.envServer up -d --force-recreate")
+os.system("docker-compose -f docker-compose-template-server.yml --env-file ./config/.envServer build --no-cache ") 
+os.system("docker-compose -f docker-compose-template-server.yml --env-file ./config/.envServer up -d --force-recreate")
