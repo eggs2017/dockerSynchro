@@ -55,5 +55,12 @@ optional arguments: <br />
   
   **docker container has been created on client machine and now every 1 hour directory is synchronized to the server side**
 
+Note: You can create multiple instances with diff dirs e.g  <br />
+
+python create-client-container.py 'storage-con' '172.16.0.10' '/c/storage2' '@hourly' --SSH-PASS='jlvu6MAzXwEzYkjerbxu' <br />
+python create-client-container.py 'storage-con' '172.16.0.10' '/c/storage3' '@daily' --SSH-PASS='jlvu6MAzXwEzYkjerbxu' <br />
+python create-client-container.py 'storage-con' '172.16.0.10' '/c/storage4' '@weekly' --SSH-PASS='jlvu6MAzXwEzYkjerbxu' <br />
+
+
   Data directory on server side is '/SynchBackupDir' 
   
