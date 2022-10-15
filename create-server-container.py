@@ -35,7 +35,11 @@ dictArgs = vars(args)
 print(dictArgs)
 
 #save
-f = open('./config/.envServer', 'w', newline='\n')
+configDir = './config'
+if not os.path.exists(configDir):
+    os.makedirs(configDir)
+f = open('{0}/.envServer'.format(configDir), 'w', newline='\n')
+
 print('CON_NAME={0}'.format(dictArgs['CON_NAME']), sep='\n', file=f)
 print('SSH_USER={0}'.format(dictArgs['SSH_USER']), sep='\n', file=f)
 print('SSH_PASS={0}'.format(dictArgs['SSH_PASS']), sep='\n', file=f)

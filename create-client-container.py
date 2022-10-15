@@ -26,7 +26,10 @@ print(dictArgs)
 
 
 #save
-f = open('./config/.envClient', 'w', newline='\n')
+configDir = './config'
+if not os.path.exists(configDir):
+    os.makedirs(configDir)
+f = open('{0}/.envClient'.format(configDir), 'w', newline='\n')
 
 print('COMPOSE_PROJECT_NAME=project-{0}'.format(dictArgs['CON_NAME']), sep='\n', file=f)
 print('CON_NAME={0}'.format(dictArgs['CON_NAME']), sep='\n', file=f)
@@ -43,6 +46,7 @@ print('SSH_PORT={0}'.format(dictArgs['SSH_PORT']), sep='\n', file=f)
 f.close() 
 
 #create ssh_user.pass file
+
 f = open('.\client_alpine\ssh_user.pass', 'w')
 f.write(dictArgs['SSH_PASS'])
 f.close()
