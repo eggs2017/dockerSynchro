@@ -1,9 +1,12 @@
-Python scripts generates containers server and client side to synchronize directory (make backups)
+Python scripts to generate containers server & clients side to synchronize directory (make backups)
 Both containers are based on alpine linux.
 Server container have ssh server and rsync tools installed and running.
 Client container connect periodically to certain server container in specific period of time to synchronise using ssh & rsync tools.
 
-
+The purpose of this project:
+  "I was wondering about an effective method to secure important data on my laptop and other computers at home. No native solution met my expectations, and I didn't want to use commercial or highly complex systems."
+  
+  
 Usage: create-server-container.py [-h] [--SSH_USER] [--SSH_PASS] [--SSH_PORT] CON_NAME <br />
 
 **Create rsync server container**
