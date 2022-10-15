@@ -4,7 +4,7 @@ Server container have ssh server and rsync tools installed and running.
 Client container connect periodically to certain server container in specific period of time to synchronise using ssh & rsync tools.
 
 
-usage: create-server-container.py [-h] [--SSH_USER] [--SSH_PASS] [--SSH_PORT] CON_NAME <br />
+Usage: create-server-container.py [-h] [--SSH_USER] [--SSH_PASS] [--SSH_PORT] CON_NAME <br />
 
 **Create rsync server container**
 
@@ -17,7 +17,7 @@ optional arguments:<br />
   --SSH_PASS   ssh password <br />
   --SSH_PORT   ssh server port <br />
 
-usage: create-client-container.py [-h] [--SSH_PORT] [--SSH_USER] [--SSH_PASS] [--SERVER_SYNCH_DIR] CON_NAME SERVER_HOST SYNCH_DIR CRON_MODE
+Usage: create-client-container.py [-h] [--SSH_PORT] [--SSH_USER] [--SSH_PASS] [--SERVER_SYNCH_DIR] CON_NAME SERVER_HOST SYNCH_DIR CRON_MODE
 
 **Create rsync client container**
 
@@ -44,7 +44,7 @@ optional arguments: <br />
   **docker container has been created with following params:  <br />**
     {'CON_NAME': 'backupServer', 'SSH_USER': 'rsync_u', 'SSH_PASS': 'jlvu6MAzXwEzYkjerbxu', 'SSH_PORT': '422'}  <br />
     
-2. copy generated password value and use in p.3.
+2. Copy generated password value to clipboard and use it in p.3.
 
 3. Create client container on windows machine to backup every 1 hour directory c:\storage  <br />
   
