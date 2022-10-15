@@ -44,7 +44,7 @@ optional arguments: <br />
   **docker container has been created with following params:  <br />**
     {'CON_NAME': 'backupServer', 'SSH_USER': 'rsync_u', 'SSH_PASS': 'jlvu6MAzXwEzYkjerbxu', 'SSH_PORT': '422'}  <br />
     
-2. copy generated password value and use in p.3.
+2. copy generated password value to clipboard and use it in p.3.
 
 3. Create client container on windows machine to backup every 1 hour directory c:\storage  <br />
   
