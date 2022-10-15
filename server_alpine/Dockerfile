@@ -1,5 +1,5 @@
 # Build Ubuntu image with base functionality.
-FROM alpine:latest
+FROM alpine:3.16.2
 
 LABEL maintainer="eggs2017"
 
