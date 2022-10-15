@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:      
+  #client
+  rsync_client:
+    
+    container_name: ${CON_NAME}
+    build: ./client_alpine
+    environment:
+      - server_host=${SERVER_HOST}            # server host
+      - server_port=${SSH_PORT}               # server port (default 422)
+     
+      - ssh_user=${SSH_USER}                  # ssh user (default rsync_u)
+      - ssh_pass=${SSH_PASS}                  # ssh user passwd(default rsync_u)
+
+      - server_synch_dir=${SERVER_SYNCH_DIR} #for freenas purpose   
+      - TZ=Europe/Warsaw
+
+    volumes:
+      - ${SYNCH_DIR}:/mnt/${CON_NAME}:ro      # /c:/mnt/c:ro                        # TODO mapping  /c:\MK/mnt/synchDir
+      
+    restart: unless-stopped

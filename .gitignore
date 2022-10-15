@@ -1,0 +1,4 @@
+config/**
+client_alpine/ssh_user.pass
+client_alpine/scheduler_rsync.txt
+

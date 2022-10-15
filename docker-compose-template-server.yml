@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  #server
+  rsync_server:
+    container_name: ${CON_NAME}
+    build: 
+      context: ./server_alpine
+      args:
+        ssh_user: ${SSH_USER}             # ssh user (default rsync_u)
+        ssh_pass: ${SSH_PASS}             # ssh password (default rsync_u)
+        
+        synchDir: /SynchBackupDir         # const
+
+    ports:
+      - "${SSH_PORT}:22"                  # to ssh (default port 422)
+   
+    restart: unless-stopped
+
+    environment:  
+      - TZ=Europe/Warsaw
+ 
