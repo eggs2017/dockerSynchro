@@ -67,7 +67,7 @@ Note: Exists option to multiple directory synchronisation, in following case sys
 
   Creates backup directories on server side <br/>
 
-      '/SynchBackupDir/_c_dirA' <br/>
-      '/SynchBackupDir/_c_dirB' <br/>
-      '/SynchBackupDir/_c_dirC' <br/>
+      '/SynchBackupDir/_c_dirA' 
+      '/SynchBackupDir/_c_dirB' 
+      '/SynchBackupDir/_c_dirC' 
   
