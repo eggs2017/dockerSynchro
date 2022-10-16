@@ -1,7 +1,7 @@
-Python scripts to generate containers server & clients side to synchronize directory (make backups).
+Python scripts to generate containers server & clients side to backup directories.
 Both containers are based on alpine linux.
 Server container have ssh server and rsync tools installed and running.
-Each client container connects periodically to certain server container in specific period of time to synchronise directory using ssh & rsync tools.<br />
+Each client container connects periodically to certain server container in specific period of time to backup directories using ssh & rsync tools.<br />
 
 Command using to synchronization: </br>
 **rsync -arv -e** <br />
@@ -48,24 +48,24 @@ optional arguments: <br />
 
 1. Create server container on machine with linux ip 172.16.0.10
 
-  python create-server-container.py  backupServer  <br />
+  python create-server-container.py  'backupServer'  <br />
 
   **docker container has been created with following params:  <br />**
     {'CON_NAME': 'backupServer', 'SSH_USER': 'rsync_u', 'SSH_PASS': 'jlvu6MAzXwEzYkjerbxu', 'SSH_PORT': '422'}  <br />
     
-2. Copy generated password value to clipboard and use it in p.3.
-
-3. Create client container on windows machine to backup every 1 hour directory c:\storage  <br />
+2. Copy password using clipboard and create client on second machine<br />
   
   python create-client-container.py 'storage-con' '172.16.0.10' '/c/storage1' '@hourly' --SSH-PASS='jlvu6MAzXwEzYkjerbxu' <br />
   
   **docker container has been created on client machine and now every 1 hour directory is synchronized to the server side**
 
-Note: Exists option to multiple directory synchronisation, in following case system synchronise c:\dirA, c:\dirB , c:\dirC  <br />
+Note: There is option to make multiple directory backup. </br>
+
+  In following case system synchronise c:\dirA, c:\dirB , c:\dirC  <br />
 
   python create-client-container.py 'storage-con' '172.16.0.10' '/c/dirA:/c/dirB:/c/dirC' '@hourly' --SSH-PASS='jlvu6MAzXwEzYkjerbxu' <br/>
 
-  Creates backup directories on server side <br/>
+ Backup directories on server side <br/>
 
       '/SynchBackupDir/_c_dirA' 
       '/SynchBackupDir/_c_dirB' 
