@@ -6,7 +6,7 @@ Each client container connects periodically to certain server container in speci
 Command using to synchronization: </br>
 
 ```
-rsync -arv -e 
+rsync -arv
 -a, --archive  
 -r, --recursive 
 -v, --verbose   
