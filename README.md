@@ -51,14 +51,14 @@ optional arguments:
 
 **Example of using:**
 
-1. Create server container on machine with linux ip 172.16.0.10
+1. Create server container.
 
   ```python create-server-container.py  'backupServer'  ```<br />
 
   **docker container has been created with following params:  <br />**
     {'CON_NAME': 'backupServer', 'SSH_USER': 'rsync_u', 'SSH_PASS': 'jlvu6MAzXwEzYkjerbxu', 'SSH_PORT': '422'}  <br />
     
-2. Copy password using clipboard and create client on second machine<br />
+2. Copy password using clipboard and create client, ip of server is required.<br />
   
   ```python create-client-container.py 'storage-con' '172.16.0.10' '/c/storage1' '@hourly' --SSH-PASS='jlvu6MAzXwEzYkjerbxu' ```
   
