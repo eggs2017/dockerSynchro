@@ -1,6 +1,4 @@
-# Build Ubuntu image with base functionality.
 FROM alpine:3.16.2
-
 LABEL maintainer="eggs2017"
 
 ARG ssh_user
