@@ -72,21 +72,14 @@ with open('docker-compose-template-client.yml') as f:
 with open('docker-compose-client-mod.yml', "w") as f:
     f.write(updatedTemplate)
 
+f.close()
 
 #create scheduler_rsync.txt for crontab
 f = open('./client_alpine/scheduler_rsync.txt', 'w', newline='\n')
 f.write(cronVal)
-'''
-print("{0} /synchDir.sh /mnt/{1} {2}/ >> /var/log/cron.log 2>&1"
-    .format(
-            dictArgs['CRON_MODE'], 
-            dictArgs['CON_NAME'],#todo
-            dictArgs['SERVER_SYNCH_DIR'])
-            , sep='\n', file=f)
-'''
 f.close()
+
+
 #run command to build container  
-
-
 os.system("docker-compose -f docker-compose-client-mod.yml --env-file ./config/.envClient build --no-cache ") 
 os.system("docker-compose -f docker-compose-client-mod.yml --env-file ./config/.envClient up -d --force-recreate")
