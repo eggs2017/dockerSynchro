@@ -31,7 +31,7 @@ if not os.path.exists(configDir):
     os.makedirs(configDir)
 f = open('{0}/.envClient'.format(configDir), 'w', newline='\n')
 
-print('COMPOSE_PROJECT_NAME=project-{0}'.format(dictArgs['CON_NAME']), sep='\n', file=f)
+print('COMPOSE_PROJECT_NAME=synchro-{0}'.format(dictArgs['CON_NAME']), sep='\n', file=f)
 print('CON_NAME={0}'.format(dictArgs['CON_NAME']), sep='\n', file=f)
 
 print('SERVER_HOST={0}'.format(dictArgs['SERVER_HOST']), sep='\n', file=f)
