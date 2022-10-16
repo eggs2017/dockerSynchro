@@ -17,6 +17,7 @@ services:
       - TZ=Europe/Warsaw
 
     volumes:
-      - ${SYNCH_DIR}:/mnt/${CON_NAME}:ro      # /c:/mnt/c:ro                        # TODO mapping  /c:\MK/mnt/synchDir
+${VOLUMES}
+      #- ${SYNCH_DIR}:/mnt/${CON_NAME}:ro      # /c:/mnt/c:ro
       
     restart: unless-stopped

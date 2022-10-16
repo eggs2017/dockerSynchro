@@ -1,7 +1,13 @@
 Python scripts to generate containers server & clients side to synchronize directory (make backups).
 Both containers are based on alpine linux.
 Server container have ssh server and rsync tools installed and running.
-Each client container connects periodically to certain server container in specific period of time to synchronise directory using ssh & rsync tools.
+Each client container connects periodically to certain server container in specific period of time to synchronise directory using ssh & rsync tools.<br />
+
+Command using to synchronization: </br>
+**rsync -arv -e** <br />
+-a, --archive  <br />
+-r, --recursive <br />
+-v, --verbose   <br/>
 
 The purpose of this project:
   "I was wondering about an effective method to secure important data on my laptop and other computers at home. No native solution met my expectations, and I didn't want to use commercial or highly complex systems."
@@ -55,12 +61,13 @@ optional arguments: <br />
   
   **docker container has been created on client machine and now every 1 hour directory is synchronized to the server side**
 
-Note: You can create multiple instances with diff dirs e.g  <br />
+Note: Exists option to multiple directory synchronisation, in following case system synchronise c:\dirA, c:\dirB , c:\dirC  <br />
 
-python create-client-container.py 'storage-con' '172.16.0.10' '/c/storage2' '@hourly' --SSH-PASS='jlvu6MAzXwEzYkjerbxu' <br />
-python create-client-container.py 'storage-con' '172.16.0.10' '/c/storage3' '@daily' --SSH-PASS='jlvu6MAzXwEzYkjerbxu' <br />
-python create-client-container.py 'storage-con' '172.16.0.10' '/c/storage4' '@weekly' --SSH-PASS='jlvu6MAzXwEzYkjerbxu' <br />
+  python create-client-container.py 'storage-con' '172.16.0.10' '/c/dirA:/c/dirB:/c/dirC' '@hourly' --SSH-PASS='jlvu6MAzXwEzYkjerbxu' <br/>
 
+  Creates backup directories on server side <br/>
 
-  Data directory on server side is '/SynchBackupDir' 
+      '/SynchBackupDir/_c_dirA' <br/>
+      '/SynchBackupDir/_c_dirB' <br/>
+      '/SynchBackupDir/_c_dirC' <br/>
   

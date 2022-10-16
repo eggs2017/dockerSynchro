@@ -51,13 +51,42 @@ f = open('./client_alpine/ssh_user.pass', 'w')
 f.write(dictArgs['SSH_PASS'])
 f.close()
 
+#update template
+synchDirs = dictArgs['SYNCH_DIR'].split(':')
+volumesVal = ''
+cronVal = ''
+
+for synchDir in synchDirs:
+    destDir = synchDir.replace('/', '_')
+    volumeVal = '{0}:/mnt/{1}:ro'.format(synchDir,destDir)
+    volumesVal += '         - {0} \n'.format(volumeVal)
+    
+    cronVal += "{0} /synchDir.sh {1} {2} >> /var/log/cron.log 2>&1 \n".format(
+            dictArgs['CRON_MODE'], 
+            volumeVal.split(':')[1], 
+            dictArgs['SERVER_SYNCH_DIR'])
+
+with open('docker-compose-template-client.yml') as f:
+    updatedTemplate=f.read().replace('${VOLUMES}', volumesVal)
+
+with open('docker-compose-client-mod.yml', "w") as f:
+    f.write(updatedTemplate)
+
+
 #create scheduler_rsync.txt for crontab
 f = open('./client_alpine/scheduler_rsync.txt', 'w', newline='\n')
-print("{0} /synchDir.sh /mnt/{1} >> /var/log/cron.log 2>&1"
+f.write(cronVal)
+'''
+print("{0} /synchDir.sh /mnt/{1} {2}/ >> /var/log/cron.log 2>&1"
     .format(
-            dictArgs['CRON_MODE'], dictArgs['CON_NAME'])
+            dictArgs['CRON_MODE'], 
+            dictArgs['CON_NAME'],#todo
+            dictArgs['SERVER_SYNCH_DIR'])
             , sep='\n', file=f)
+'''
 f.close()
 #run command to build container  
-os.system("docker-compose -f docker-compose-template-client.yml --env-file ./config/.envClient build --no-cache ") 
-os.system("docker-compose -f docker-compose-template-client.yml --env-file ./config/.envClient up -d --force-recreate")
+
+
+os.system("docker-compose -f docker-compose-client-mod.yml --env-file ./config/.envClient build --no-cache ") 
+os.system("docker-compose -f docker-compose-client-mod.yml --env-file ./config/.envClient up -d --force-recreate")
