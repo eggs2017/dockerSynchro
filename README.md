@@ -13,7 +13,7 @@ rsync -arv
  ```
 
 The purpose of this project:
-  "I was wondering about an effective method to secure important data on my laptop and other computers at home. No native solution met my expectations, and I didn't want to use commercial or highly complex systems."
+  "I was wondering about an effective method to backup important data (my laptop and other computers at home) in safe place. No native solution met my expectations, and I didn't want to use commercial or highly complex systems."
   
 **Create rsync server container**
 
