@@ -79,3 +79,32 @@ Note: There is option to make multiple directory backup. </br>
       '/SynchBackupDir/_c_dirB' 
       '/SynchBackupDir/_c_dirC' 
  ``` 
+
+**Second example**
+
+What if want You to be even safer and backup Your data in multiple places in parallel? </br>
+
+1. Open client docker container in shell </br>
+  ```docker -exec  -it [container id] /bin/sh```
+
+2. Edit crontab file </br>
+      ```crontab -e```
+
+    Can looks like below </br>
+
+      ```
+      @hourly /synchDir.sh '/mnt/_c_dirA' '/SynchBackupDir' '192.168.0.10'>> /var/log/cron.log 2>&1 
+      @hourly /synchDir.sh '/mnt/_c_dirB '/SynchBackupDir' '192.168.0.10'>> /var/log/cron.log 2>&1 
+      ```
+     Change to: </br>
+    
+    '''
+     serverA='192.168.0.10'
+     serverB='192.168.0.11'
+
+     @hourly /synchDir.sh '/mnt/_c_dirA' '/SynchBackupDir' $serverA >> /var/log/cron.log 2>&1 
+     @hourly /synchDir.sh '/mnt/_c_dirB  '/SynchBackupDir' $serverA >> /var/log/cron.log 2>&1
+     
+     @hourly /synchDir.sh '/mnt/_c_dirA' '/SynchBackupDir' $serverB >> /var/log/cron.log 2>&1 
+     @hourly /synchDir.sh '/mnt/_c_dirB  '/SynchBackupDir' $serverB >> /var/log/cron.log 2>&1 
+      '''
