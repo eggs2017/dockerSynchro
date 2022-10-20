@@ -98,7 +98,7 @@ What if want You to be even safer and backup Your data in multiple places in par
       ```
      Change to: </br>
     
-    '''
+     ```
      serverA='192.168.0.10'
      serverB='192.168.0.11'
 
@@ -107,4 +107,4 @@ What if want You to be even safer and backup Your data in multiple places in par
      
      @hourly /synchDir.sh '/mnt/_c_dirA' '/SynchBackupDir' $serverB >> /var/log/cron.log 2>&1 
      @hourly /synchDir.sh '/mnt/_c_dirB  '/SynchBackupDir' $serverB >> /var/log/cron.log 2>&1 
-      '''
+    ```
