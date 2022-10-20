@@ -61,10 +61,11 @@ for synchDir in synchDirs:
     volumeVal = '{0}:/mnt/{1}:ro'.format(synchDir,destDir)
     volumesVal += '         - {0} \n'.format(volumeVal)
     
-    cronVal += "{0} /synchDir.sh {1} {2} >> /var/log/cron.log 2>&1 \n".format(
+    cronVal += "{0} /synchDir.sh '{1}' '{2}' '{3}'>> /var/log/cron.log 2>&1 \n".format(
             dictArgs['CRON_MODE'], 
             volumeVal.split(':')[1], 
-            dictArgs['SERVER_SYNCH_DIR'])
+            dictArgs['SERVER_SYNCH_DIR'],
+            dictArgs['SERVER_HOST'])
 
 with open('docker-compose-template-client.yml') as f:
     updatedTemplate=f.read().replace('${VOLUMES}', volumesVal)
