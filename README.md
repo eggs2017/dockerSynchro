@@ -62,7 +62,7 @@ optional arguments:
     
 2. Copy password using clipboard and create client, ip of server is required.<br />
   
-  ```python create-client-container.py 'storage-con' '172.16.0.10' '/c/storage1' '@hourly' --SSH-PASS='jlvu6MAzXwEzYkjerbxu' ```
+  ```python create-client-container.py 'storage-con' '192.168.0.10' '/c/storage1' '@hourly' --SSH-PASS='jlvu6MAzXwEzYkjerbxu' ```
   
   **docker container has been created on client machine and now every 1 hour directory is synchronized to the server side**
 
@@ -70,7 +70,7 @@ Note: There is option to make multiple directory backup. </br>
 
   In following case system synchronise c:\dirA, c:\dirB , c:\dirC  <br />
 
-  ```python create-client-container.py 'storage-con' '172.16.0.10' '/c/dirA:/c/dirB:/c/dirC' '@hourly' --SSH-PASS='jlvu6MAzXwEzYkjerbxu' ```
+  ```python create-client-container.py 'storage-con' '192.168.0.10' '/c/dirA:/c/dirB:/c/dirC' '@hourly' --SSH-PASS='jlvu6MAzXwEzYkjerbxu' ```
 
 ```
  Backup directories on server side 
