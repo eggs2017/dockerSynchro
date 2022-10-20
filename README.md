@@ -80,7 +80,7 @@ Note: There is option to make multiple directory backup. </br>
       '/SynchBackupDir/_c_dirC' 
  ``` 
 
-**Second example**
+**Second example - dive inside a docker!**
 
 What if want You to be even safer and backup Your data in multiple places in parallel? </br>
 
@@ -94,7 +94,8 @@ What if want You to be even safer and backup Your data in multiple places in par
 
       ```
       @hourly /synchDir.sh '/mnt/_c_dirA' '/SynchBackupDir' '192.168.0.10' >> /var/log/cron.log 2>&1 
-      @hourly /synchDir.sh '/mnt/_c_dirB  '/SynchBackupDir' '192.168.0.10' >> /var/log/cron.log 2>&1 
+      @hourly /synchDir.sh '/mnt/_c_dirB  '/SynchBackupDir' '192.168.0.10' >> /var/log/cron.log 2>&1
+      @hourly /synchDir.sh '/mnt/_c_dirC  '/SynchBackupDir' '192.168.0.10' >> /var/log/cron.log 2>&1
       ```
      Change to: </br>
     
@@ -104,7 +105,9 @@ What if want You to be even safer and backup Your data in multiple places in par
 
      @hourly /synchDir.sh '/mnt/_c_dirA' '/SynchBackupDir' $serverContainerA >> /var/log/cron.log 2>&1 
      @hourly /synchDir.sh '/mnt/_c_dirB  '/SynchBackupDir' $serverContainerA >> /var/log/cron.log 2>&1
+     @hourly /synchDir.sh '/mnt/_c_dirC  '/SynchBackupDir' $serverContainerA >> /var/log/cron.log 2>&1
      
      @hourly /synchDir.sh '/mnt/_c_dirA' '/SynchBackupDir' $serverContainerB >> /var/log/cron.log 2>&1 
-     @hourly /synchDir.sh '/mnt/_c_dirB  '/SynchBackupDir' $serverContainerB >> /var/log/cron.log 2>&1 
+     @hourly /synchDir.sh '/mnt/_c_dirB  '/SynchBackupDir' $serverContainerB >> /var/log/cron.log 2>&1
+     @hourly /synchDir.sh '/mnt/_c_dirC  '/SynchBackupDir' $serverContainerC >> /var/log/cron.log 2>&1
     ```
