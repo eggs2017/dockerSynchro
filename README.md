@@ -1,5 +1,7 @@
-Python scripts to generate containers server & clients side to backup directories.
-Both containers are based on alpine linux.
+Automatics docker containers server & clients side  generator to backup directories.
+
+Both docker containers are based on alpine linux.
+
 Server container have ssh server and rsync tools installed and running.
 Each client container connects periodically to certain server container in specific period of time to backup directories using ssh & rsync tools.<br />
 
