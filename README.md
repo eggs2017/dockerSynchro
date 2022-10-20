@@ -1,4 +1,4 @@
-Automatics docker containers server & clients side  generator to backup directories.
+Docker container creator server & clients side to backup directories.
 
 Both docker containers are based on alpine linux.
 
