@@ -93,18 +93,18 @@ What if want You to be even safer and backup Your data in multiple places in par
     Can looks like below </br>
 
       ```
-      @hourly /synchDir.sh '/mnt/_c_dirA' '/SynchBackupDir' '192.168.0.10'>> /var/log/cron.log 2>&1 
-      @hourly /synchDir.sh '/mnt/_c_dirB '/SynchBackupDir' '192.168.0.10'>> /var/log/cron.log 2>&1 
+      @hourly /synchDir.sh '/mnt/_c_dirA' '/SynchBackupDir' '192.168.0.10' >> /var/log/cron.log 2>&1 
+      @hourly /synchDir.sh '/mnt/_c_dirB  '/SynchBackupDir' '192.168.0.10' >> /var/log/cron.log 2>&1 
       ```
      Change to: </br>
     
      ```
-     serverA='192.168.0.10'
-     serverB='192.168.0.11'
+     serverContainerA='192.168.0.10'
+     serverContainerB='192.168.0.11'
 
-     @hourly /synchDir.sh '/mnt/_c_dirA' '/SynchBackupDir' $serverA >> /var/log/cron.log 2>&1 
-     @hourly /synchDir.sh '/mnt/_c_dirB  '/SynchBackupDir' $serverA >> /var/log/cron.log 2>&1
+     @hourly /synchDir.sh '/mnt/_c_dirA' '/SynchBackupDir' $serverContainerA >> /var/log/cron.log 2>&1 
+     @hourly /synchDir.sh '/mnt/_c_dirB  '/SynchBackupDir' $serverContainerA >> /var/log/cron.log 2>&1
      
-     @hourly /synchDir.sh '/mnt/_c_dirA' '/SynchBackupDir' $serverB >> /var/log/cron.log 2>&1 
-     @hourly /synchDir.sh '/mnt/_c_dirB  '/SynchBackupDir' $serverB >> /var/log/cron.log 2>&1 
+     @hourly /synchDir.sh '/mnt/_c_dirA' '/SynchBackupDir' $serverContainerB >> /var/log/cron.log 2>&1 
+     @hourly /synchDir.sh '/mnt/_c_dirB  '/SynchBackupDir' $serverContainerB >> /var/log/cron.log 2>&1 
     ```
