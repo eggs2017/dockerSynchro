@@ -100,8 +100,8 @@ What if want You to be even safer and backup Your data in multiple places in par
      Change to: </br>
     
      ```
-     serverContainerA='192.168.0.10'
-     serverContainerB='192.168.0.11'
+     serverContainerA='192.168.0.10' #example value
+     serverContainerB='192.168.0.11' #example value
 
      @hourly /synchDir.sh '/mnt/_c_dirA' '/SynchBackupDir' $serverContainerA >> /var/log/cron.log 2>&1 
      @hourly /synchDir.sh '/mnt/_c_dirB  '/SynchBackupDir' $serverContainerA >> /var/log/cron.log 2>&1
