@@ -1,6 +1,7 @@
-Docker container creator server & clients side to backup directories.
+Tool to backup data.
+This tool makes docker containers server and client side.
 
-Both docker containers are based on alpine linux.
+Both docker containers are based on alpine 3.16 and is very light.
 
 Server container have ssh server and rsync tools installed and running.
 Each client container connects periodically to certain server container in specific period of time to backup directories using ssh & rsync tools.<br />
