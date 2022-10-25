@@ -56,22 +56,22 @@ optional arguments:
 
 **Example of using:**
 
-1. Create server container.
+1. Create server container. On server machine run the following command:
 
   ```python create-server-container.py  'backupServer'  ```<br />
 
   **docker container has been created with following params:  <br />**
     {'con_name': 'backupServer', 'ssh_user': 'rsync_u', 'ssh_pass': 'jlvu6MAzXwEzYkjerbxu', 'ssh_port': '422', 'cron_mode': '@daily'}  <br />
     
-2. Copy password using clipboard and create client, ip of server is required.<br />
+2. Copy password using clipboard and on client machine run the following command:<br />
   
-  ```python create-client-container.py 'storage-con' '192.168.0.10' '/c/storage1' 'jlvu6MAzXwEzYkjerbxu' ```
+  ```python create-client-container.py 'storage-client1' '192.168.0.10' '/c/storage1' 'jlvu6MAzXwEzYkjerbxu' ```
   
   **docker container has been created on client machine and now every 1 hour directory is synchronized to the server side**
 
-Note: There is option to make multiple directory backup. </br>
+Note: There is an option to make multiple directory backup. </br>
 
-  In following case system synchronise c:\dirA, c:\dirB , c:\dirC  <br />
+  In following case system synchronise multiple location c:\dirA, c:\dirB , c:\dirC  <br />
 
   ```python create-client-container.py 'storage-con' '192.168.0.10' '/c/dirA:/c/dirB:/c/dirC' 'jlvu6MAzXwEzYkjerbxu' ```
 
