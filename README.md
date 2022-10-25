@@ -74,7 +74,7 @@ optional arguments:
 2. Copy password using clipboard and on client machine run the following command:<br />
   
   ```
-  python create-client-container.py 'storage-client1' '192.168.0.10' '/c/storage1' 'jlvu6MAzXwEzYkjerbxu'
+  python create-client-container.py 'storage-multi-dirs' '192.168.0.10' '/c/storage1' 'jlvu6MAzXwEzYkjerbxu'
   ```
   
   **docker container has been created on client machine and now every 1 hour directory is synchronized to the server side**
