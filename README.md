@@ -1,5 +1,5 @@
-Tool to backup data.
-This tool makes docker containers server and client side.
+Tool to backup your sensitive data.
+This tool makes docker containers server/client side.
 
 Both docker containers are based on alpine 3.16 and is very light.
 
