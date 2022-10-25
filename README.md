@@ -61,11 +61,11 @@ optional arguments:
   ```python create-server-container.py  'backupServer'  ```<br />
 
   **docker container has been created with following params:  <br />**
-    {'CON_NAME': 'backupServer', 'SSH_USER': 'rsync_u', 'SSH_PASS': 'jlvu6MAzXwEzYkjerbxu', 'SSH_PORT': '422'}  <br />
+    {'con_name': 'backupServer', 'ssh_user': 'rsync_u', 'ssh_pass': 'jlvu6MAzXwEzYkjerbxu', 'ssh_port': '422', 'cron_mode': '@daily'}  <br />
     
 2. Copy password using clipboard and create client, ip of server is required.<br />
   
-  ```python create-client-container.py 'storage-con' '192.168.0.10' '/c/storage1' '@hourly' --SSH-PASS='jlvu6MAzXwEzYkjerbxu' ```
+  ```python create-client-container.py 'storage-con' '192.168.0.10' '/c/storage1' 'jlvu6MAzXwEzYkjerbxu' ```
   
   **docker container has been created on client machine and now every 1 hour directory is synchronized to the server side**
 
@@ -73,7 +73,7 @@ Note: There is option to make multiple directory backup. </br>
 
   In following case system synchronise c:\dirA, c:\dirB , c:\dirC  <br />
 
-  ```python create-client-container.py 'storage-con' '192.168.0.10' '/c/dirA:/c/dirB:/c/dirC' '@hourly' --SSH-PASS='jlvu6MAzXwEzYkjerbxu' ```
+  ```python create-client-container.py 'storage-con' '192.168.0.10' '/c/dirA:/c/dirB:/c/dirC' 'jlvu6MAzXwEzYkjerbxu' ```
 
 ```
  Backup directories on server side 
@@ -96,9 +96,9 @@ What if want You to be even safer and backup Your data in multiple places in par
     Can looks like below </br>
 
       ```
-      @hourly /synchDir.sh '/mnt/_c_dirA' '/SynchBackupDir' '192.168.0.10' >> /var/log/cron.log 2>&1 
-      @hourly /synchDir.sh '/mnt/_c_dirB  '/SynchBackupDir' '192.168.0.10' >> /var/log/cron.log 2>&1
-      @hourly /synchDir.sh '/mnt/_c_dirC  '/SynchBackupDir' '192.168.0.10' >> /var/log/cron.log 2>&1
+      @daily /synchDir.sh '/mnt/_c_dirA' '/SynchBackupDir' '192.168.0.10' >> /var/log/cron.log 2>&1 
+      @daily /synchDir.sh '/mnt/_c_dirB  '/SynchBackupDir' '192.168.0.10' >> /var/log/cron.log 2>&1
+      @daily /synchDir.sh '/mnt/_c_dirC  '/SynchBackupDir' '192.168.0.10' >> /var/log/cron.log 2>&1
       ```
      Change to: </br>
     
@@ -106,11 +106,11 @@ What if want You to be even safer and backup Your data in multiple places in par
      serverContainerA='192.168.0.10' #example value
      serverContainerB='192.168.0.11' #example value
 
-     @hourly /synchDir.sh '/mnt/_c_dirA' '/SynchBackupDir' $serverContainerA >> /var/log/cron.log 2>&1 
-     @hourly /synchDir.sh '/mnt/_c_dirB  '/SynchBackupDir' $serverContainerA >> /var/log/cron.log 2>&1
-     @hourly /synchDir.sh '/mnt/_c_dirC  '/SynchBackupDir' $serverContainerA >> /var/log/cron.log 2>&1
+     @daily /synchDir.sh '/mnt/_c_dirA' '/SynchBackupDir' $serverContainerA >> /var/log/cron.log 2>&1 
+     @daily /synchDir.sh '/mnt/_c_dirB  '/SynchBackupDir' $serverContainerA >> /var/log/cron.log 2>&1
+     @daily /synchDir.sh '/mnt/_c_dirC  '/SynchBackupDir' $serverContainerA >> /var/log/cron.log 2>&1
      
-     @hourly /synchDir.sh '/mnt/_c_dirA' '/SynchBackupDir' $serverContainerB >> /var/log/cron.log 2>&1 
-     @hourly /synchDir.sh '/mnt/_c_dirB  '/SynchBackupDir' $serverContainerB >> /var/log/cron.log 2>&1
-     @hourly /synchDir.sh '/mnt/_c_dirC  '/SynchBackupDir' $serverContainerC >> /var/log/cron.log 2>&1
+     @daily /synchDir.sh '/mnt/_c_dirA' '/SynchBackupDir' $serverContainerB >> /var/log/cron.log 2>&1 
+     @daily /synchDir.sh '/mnt/_c_dirB  '/SynchBackupDir' $serverContainerB >> /var/log/cron.log 2>&1
+     @daily /synchDir.sh '/mnt/_c_dirC  '/SynchBackupDir' $serverContainerC >> /var/log/cron.log 2>&1
     ```
