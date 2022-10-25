@@ -1,6 +1,7 @@
-Automatics docker containers server & clients side  generator to backup directories.
+Tool to backup data.
+This tool makes docker containers server and client side.
 
-Both docker containers are based on alpine linux.
+Both docker containers are based on alpine 3.16 and is very light.
 
 Server container have ssh server and rsync tools installed and running.
 Each client container connects periodically to certain server container in specific period of time to backup directories using ssh & rsync tools.<br />
@@ -64,7 +65,7 @@ optional arguments:
     
 2. Copy password using clipboard and create client, ip of server is required.<br />
   
-  ```python create-client-container.py 'storage-con' '172.16.0.10' '/c/storage1' 'jlvu6MAzXwEzYkjerbxu' ```
+  ```python create-client-container.py 'storage-con' '192.168.0.10' '/c/storage1' '@hourly' --SSH-PASS='jlvu6MAzXwEzYkjerbxu' ```
   
   **docker container has been created on client machine and now every 1 hour directory is synchronized to the server side**
 
@@ -72,7 +73,7 @@ Note: There is option to make multiple directory backup. </br>
 
   In following case system synchronise c:\dirA, c:\dirB , c:\dirC  <br />
 
-  ```python create-client-container.py 'storage-con' '172.16.0.10' '/c/dirA:/c/dirB:/c/dirC' 'jlvu6MAzXwEzYkjerbxu' ```
+  ```python create-client-container.py 'storage-con' '192.168.0.10' '/c/dirA:/c/dirB:/c/dirC' '@hourly' --SSH-PASS='jlvu6MAzXwEzYkjerbxu' ```
 
 ```
  Backup directories on server side 
@@ -82,7 +83,7 @@ Note: There is option to make multiple directory backup. </br>
       '/SynchBackupDir/_c_dirC' 
  ``` 
 
-**Second example**
+**Second example - dive inside a docker!**
 
 What if want You to be even safer and backup Your data in multiple places in parallel? </br>
 
@@ -95,18 +96,21 @@ What if want You to be even safer and backup Your data in multiple places in par
     Can looks like below </br>
 
       ```
-      @hourly /synchDir.sh '/mnt/_c_dirA' '/SynchBackupDir' '192.168.0.10'>> /var/log/cron.log 2>&1 
-      @hourly /synchDir.sh '/mnt/_c_dirB '/SynchBackupDir' '192.168.0.10'>> /var/log/cron.log 2>&1 
+      @hourly /synchDir.sh '/mnt/_c_dirA' '/SynchBackupDir' '192.168.0.10' >> /var/log/cron.log 2>&1 
+      @hourly /synchDir.sh '/mnt/_c_dirB  '/SynchBackupDir' '192.168.0.10' >> /var/log/cron.log 2>&1
+      @hourly /synchDir.sh '/mnt/_c_dirC  '/SynchBackupDir' '192.168.0.10' >> /var/log/cron.log 2>&1
       ```
      Change to: </br>
     
      ```
-     serverA='192.168.0.10'
-     serverB='192.168.0.11'
+     serverContainerA='192.168.0.10' #example value
+     serverContainerB='192.168.0.11' #example value
 
-     @hourly /synchDir.sh '/mnt/_c_dirA' '/SynchBackupDir' $serverA >> /var/log/cron.log 2>&1 
-     @hourly /synchDir.sh '/mnt/_c_dirB  '/SynchBackupDir' $serverA >> /var/log/cron.log 2>&1
+     @hourly /synchDir.sh '/mnt/_c_dirA' '/SynchBackupDir' $serverContainerA >> /var/log/cron.log 2>&1 
+     @hourly /synchDir.sh '/mnt/_c_dirB  '/SynchBackupDir' $serverContainerA >> /var/log/cron.log 2>&1
+     @hourly /synchDir.sh '/mnt/_c_dirC  '/SynchBackupDir' $serverContainerA >> /var/log/cron.log 2>&1
      
-     @hourly /synchDir.sh '/mnt/_c_dirA' '/SynchBackupDir' $serverB >> /var/log/cron.log 2>&1 
-     @hourly /synchDir.sh '/mnt/_c_dirB  '/SynchBackupDir' $serverB >> /var/log/cron.log 2>&1 
+     @hourly /synchDir.sh '/mnt/_c_dirA' '/SynchBackupDir' $serverContainerB >> /var/log/cron.log 2>&1 
+     @hourly /synchDir.sh '/mnt/_c_dirB  '/SynchBackupDir' $serverContainerB >> /var/log/cron.log 2>&1
+     @hourly /synchDir.sh '/mnt/_c_dirC  '/SynchBackupDir' $serverContainerC >> /var/log/cron.log 2>&1
     ```
