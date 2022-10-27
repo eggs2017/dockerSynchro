@@ -20,7 +20,10 @@ The purpose of this project:
   
 **Create rsync server container**
 
-Usage: ```python create-server-container.py [-h] [-ssh_user SSH_USER] [-ssh_pass SSH_PASS] [-ssh_port SSH_PORT] con_name ```
+Usage: 
+```
+python create-server-container.py [-h] [-ssh_user SSH_USER] [-ssh_pass SSH_PASS] [-ssh_port SSH_PORT] con_name 
+```
 
 ```
 positional arguments:
@@ -35,7 +38,10 @@ optional arguments:
 
 **Create rsync client container**
 
-Usage: ```python create-client-container.py [-h] [--cron_mode CRON_MODE] [--ssh_port SSH_PORT] [--ssh_user SSH_USER] [--server_synch_dir SERVER_SYNCH_DIR] con_name server_host synch_dir ssh_pass```
+Usage: 
+```
+python create-client-container.py [-h] [--cron_mode CRON_MODE] [--ssh_port SSH_PORT] [--ssh_user SSH_USER] [--server_synch_dir SERVER_SYNCH_DIR] con_name server_host synch_dir ssh_pass
+```
 
 ```
 positional arguments:
@@ -58,14 +64,18 @@ optional arguments:
 
 1. Create server container. On server machine run the following command:
 
-  ```python create-server-container.py  'backupServer'  ```<br />
+  ```
+  python create-server-container.py  'backupServer'  
+  ```
 
   **docker container has been created with following params:  <br />**
     {'con_name': 'backupServer', 'ssh_user': 'rsync_u', 'ssh_pass': 'jlvu6MAzXwEzYkjerbxu', 'ssh_port': '422', 'cron_mode': '@daily'}  <br />
     
 2. Copy password using clipboard and on client machine run the following command:<br />
   
-  ```python create-client-container.py 'storage-client1' '192.168.0.10' '/c/storage1' 'jlvu6MAzXwEzYkjerbxu' ```
+  ```
+  python create-client-container.py 'storage-multi-dirs' '192.168.0.10' '/c/storage1' 'jlvu6MAzXwEzYkjerbxu'
+  ```
   
   **docker container has been created on client machine and now every 1 hour directory is synchronized to the server side**
 
@@ -73,34 +83,38 @@ Note: There is an option to make multiple directory backup. </br>
 
   In following case system synchronise multiple location c:\dirA, c:\dirB , c:\dirC  <br />
 
-  ```python create-client-container.py 'storage-con' '192.168.0.10' '/c/dirA:/c/dirB:/c/dirC' 'jlvu6MAzXwEzYkjerbxu' ```
-
-```
- Backup directories on server side 
-
-      '/SynchBackupDir/_c_dirA' 
-      '/SynchBackupDir/_c_dirB' 
-      '/SynchBackupDir/_c_dirC' 
- ``` 
+  ```
+  python create-client-container.py 'storage-con' '192.168.0.10' '/c/dirA:/c/dirB:/c/dirC' 'jlvu6MAzXwEzYkjerbxu' 
+  ```
+</br>
+ Backups directories on server side in the following locations: </br>
+      '/SynchBackupDir/_c_dirA'  </br>
+      '/SynchBackupDir/_c_dirB'  </br>
+      '/SynchBackupDir/_c_dirC'  </br>
+ </br>
 
 **Second example - dive inside a docker!**
 
 What if want You to be even safer and backup Your data in multiple places in parallel? </br>
 
-1. Open client docker container in shell </br>
-  ```docker -exec  -it [container id] /bin/sh```
+1. Open client docker container in shell
+  ```
+  docker -exec  -it [container id] /bin/sh
+  ```
 
-2. Edit crontab file </br>
-      ```crontab -e```
+2. Edit crontab file 
+      ```
+      crontab -e
+      ```
 
-    Can looks like below </br>
+    Can looks like below
 
       ```
       @daily /synchDir.sh '/mnt/_c_dirA' '/SynchBackupDir' '192.168.0.10' >> /var/log/cron.log 2>&1 
       @daily /synchDir.sh '/mnt/_c_dirB  '/SynchBackupDir' '192.168.0.10' >> /var/log/cron.log 2>&1
       @daily /synchDir.sh '/mnt/_c_dirC  '/SynchBackupDir' '192.168.0.10' >> /var/log/cron.log 2>&1
       ```
-     Change to: </br>
+     Change to: 
     
      ```
      serverContainerA='192.168.0.10' #example value
