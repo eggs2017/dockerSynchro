@@ -2,7 +2,7 @@
 
 synchDir="$1"
 remoteDestDir="$2"
-serverHost = "$3"
+serverHost="$3"
 
 ts=$(date +%d-%m-%Y_%H-%M-%S)
 echo "Synch Begin $ts" >> '/var/log/synch.log'
