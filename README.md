@@ -69,7 +69,7 @@ optional arguments:
   ```
 
   **docker container has been created with following params:  <br />**
-    {'con_name': 'backupServer', 'ssh_user': 'rsync_u', 'ssh_pass': 'jlvu6MAzXwEzYkjerbxu', 'ssh_port': '422', 'cron_mode': '@daily'}  <br />
+    {'con_name': 'backupServer', 'ssh_user': 'rsync_u', 'ssh_pass': 'jlvu6MAzXwEzYkjerbxu', 'ssh_port': '422'}  <br />
     
 2. Copy password using clipboard and on client machine run the following command:<br />
   
