@@ -1,130 +1,75 @@
-Tool to backup your sensitive data.
-This tool makes docker containers server/client side.
+```markdown
+# Data Backup Tool for Sensitive Information
 
-Both docker containers are based on alpine 3.16
+This tool utilizes Docker containers to create secure, server-client setups specifically designed for backing up sensitive data. Both the server and client containers are based on Alpine Linux 3.16. The server container includes an SSH server and rsync tools for secure data synchronization. Each client container periodically connects to a specific server container to backup directories using SSH and rsync.
 
-Server container have ssh server and rsync tools installed and running.
-Each client container connects periodically to certain server container to backup directories using ssh & rsync tools.<br />
+The command used for synchronization is:
 
-Command using to synchronization: </br>
-
-```
+```bash
 rsync -arv
 -a, --archive  
 -r, --recursive 
 -v, --verbose   
- ```
+```
 
-The purpose of this project:
-  "I was wondering about an effective method to backup important data (my laptop and other computers at home) in safe place. No native solution met my expectations, and I didn't want to use commercial or highly complex systems."
-  
-**Create rsync server container**
+## Project Overview:
+The primary goal of this project was to find an effective method for backing up important data (laptop and home computers) to a secure location. No native solutions met the user's expectations, and using commercial or highly complex systems was not desired.
 
+## Creating an rsync Server Container:
 Usage: 
+```python
+python create-server-container.py [-h] [-ssh_user SSH_USER] [-ssh_pass SSH_PASS] [-ssh_port SSH_PORT] con_name
 ```
-python create-server-container.py [-h] [-ssh_user SSH_USER] [-ssh_pass SSH_PASS] [-ssh_port SSH_PORT] con_name 
-```
+Default values are specified for some parameters, e.g., `ssh_password` is defaulted to 'pDTdPBBxnr9465kjKxgw' and `ssh_port` is defaulted to '422'.
 
-```
-positional arguments:
-  con_name            container name
-
-optional arguments:
-  -h, --help          show this help message and exit
-  -ssh_user SSH_USER  ssh user, default value 'rsync_u'
-  -ssh_pass SSH_PASS  ssh password, defaulted by 'pDTdPBBxnr9465kjKxgw'
-  -ssh_port SSH_PORT  ssh server port, default value '422'
-```
-
-**Create rsync client container**
-
+## Creating an rsync Client Container:
 Usage: 
-```
+```python
 python create-client-container.py [-h] [--cron_mode CRON_MODE] [--ssh_port SSH_PORT] [--ssh_user SSH_USER] [--server_synch_dir SERVER_SYNCH_DIR] con_name server_host synch_dir ssh_pass
 ```
+The `--cron_mode` parameter specifies the synchronization frequency (e.g., '@daily', '@hourly', '@weekly', or '0 2 * * *'). The default value is '@daily'.
 
+## Example Usage:
+
+1. Create a server container on the server machine:
+
+```bash
+python create-server-container.py 'backupServer'
 ```
-positional arguments:
-  con_name              container name
-  server_host           server host ip
-  synch_dir             local directory to synchro e.g '/c/dirA' or '/d/DirA'
-  ssh_pass              ssh password
 
-optional arguments:
-  -h, --help            show this help message and exit
-  --cron_mode CRON_MODE
-                        crontab mode e.g '@daily', '@hourly', '@weekly' or just '0 2 * * *', default value '@daily'
-  --ssh_port SSH_PORT   ssh port, default value '422'
-  --ssh_user SSH_USER   ssh user, default value 'rsync_u'
-  --server_synch_dir SERVER_SYNCH_DIR
-                        server storage path, default value '/SynchBackupDir'
- ``` 
+This command creates a Docker container with the specified parameters (e.g., `con_name`, `ssh_user`, and `ssh_pass`).
 
-**Example of using:**
+2. On the client machine, copy the password to the clipboard and run:
 
-1. Create server container. On server machine run the following command:
+```bash
+python create-client-container.py 'storage-multi-dirs' '192.168.0.10' '/c/storage1' 'jlvu6MAzXwEzYkjerbxu'
+```
 
-  ```
-  python create-server-container.py  'backupServer'  
-  ```
+This creates a client container that will synchronize the specified directory with the server every hour by default.
 
-  **docker container has been created with following params:  <br />**
-    {'con_name': 'backupServer', 'ssh_user': 'rsync_u', 'ssh_pass': 'jlvu6MAzXwEzYkjerbxu', 'ssh_port': '422'}  <br />
-    
-2. Copy password using clipboard and on client machine run the following command:<br />
-  
-  ```
-  python create-client-container.py 'storage-multi-dirs' '192.168.0.10' '/c/storage1' 'jlvu6MAzXwEzYkjerbxu'
-  ```
-  
-  **docker container has been created on client machine and now every 1 hour directory is synchronized to the server side**
+## Support for Multiple Directories:
+To backup multiple directories simultaneously, use the following command:
 
-Note: There is an option to make multiple directory backup. </br>
+```bash
+python create-client-container.py 'storage-con' '192.168.0.10' '/c/dirA:/c/dirB:/c/dirC' 'jlvu6MAzXwEzYkjerbxu'
+```
 
-  In following case system synchronise multiple location c:\dirA, c:\dirB , c:\dirC  <br />
+Backups of these directories will be stored on the server in separate locations (e.g., '/SynchBackupDir/_c\_dirA', '/SynchBackupDir/_c\_dirB', '/SynchBackupDir/_c\_dirC').
 
-  ```
-  python create-client-container.py 'storage-con' '192.168.0.10' '/c/dirA:/c/dirB:/c/dirC' 'jlvu6MAzXwEzYkjerbxu' 
-  ```
-</br>
- Backups directories on server side in the following locations: </br>
-      '/SynchBackupDir/_c_dirA'  </br>
-      '/SynchBackupDir/_c_dirB'  </br>
-      '/SynchBackupDir/_c_dirC'  </br>
- </br>
+## Advanced Usage: Parallel Backups to Multiple Locations
 
-**Second example - dive inside a docker!**
+1. Open a client Docker container in the shell:
+```bash
+docker -exec  -it [container id] /bin/sh
+```
 
-What if want You to be even safer and backup Your data in multiple places in parallel? </br>
+2. Edit the crontab file (e.g., `crontab -e`) and add synchronization commands for each target location, such as:
+```bash
+@daily /synchDir.sh '/mnt/_c\_dirA' '/SynchBackupDir' $serverContainerA >> /var/log/cron.log 2>&1 
+@daily /synchDir.sh '/mnt/_c\_dirB' '/SynchBackupDir' $serverContainerA >> /var/log/cron.log 2>&1 
+```
+In this example, `$serverContainerA` represents the IP address of the source server for a given backup.
 
-1. Open client docker container in shell
-  ```
-  docker -exec  -it [container id] /bin/sh
-  ```
-
-2. Edit crontab file 
-      ```
-      crontab -e
-      ```
-
-    Can looks like below
-
-      ```
-      @daily /synchDir.sh '/mnt/_c_dirA' '/SynchBackupDir' '192.168.0.10' >> /var/log/cron.log 2>&1 
-      @daily /synchDir.sh '/mnt/_c_dirB  '/SynchBackupDir' '192.168.0.10' >> /var/log/cron.log 2>&1
-      @daily /synchDir.sh '/mnt/_c_dirC  '/SynchBackupDir' '192.168.0.10' >> /var/log/cron.log 2>&1
-      ```
-     Change to: 
-    
-     ```
-     serverContainerA='192.168.0.10' #example value
-     serverContainerB='192.168.0.11' #example value
-
-     @daily /synchDir.sh '/mnt/_c_dirA' '/SynchBackupDir' $serverContainerA >> /var/log/cron.log 2>&1 
-     @daily /synchDir.sh '/mnt/_c_dirB  '/SynchBackupDir' $serverContainerA >> /var/log/cron.log 2>&1
-     @daily /synchDir.sh '/mnt/_c_dirC  '/SynchBackupDir' $serverContainerA >> /var/log/cron.log 2>&1
-     
-     @daily /synchDir.sh '/mnt/_c_dirA' '/SynchBackupDir' $serverContainerB >> /var/log/cron.log 2>&1 
-     @daily /synchDir.sh '/mnt/_c_dirB  '/SynchBackupDir' $serverContainerB >> /var/log/cron.log 2>&1
-     @daily /synchDir.sh '/mnt/_c_dirC  '/SynchBackupDir' $serverContainerC >> /var/log/cron.log 2>&1
-    ```
+## Summary:
+This data backup tool offers flexible and secure solutions for various synchronization scenarios, tailored to meet your specific needs. By utilizing Docker containers and rsync for secure data transfer, it ensures efficient and reliable backups of sensitive information.
+```
